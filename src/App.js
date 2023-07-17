@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { Button } from "react-bootstrap";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import { QueryClient, QueryClientProvider } from "react-query";
+import HomePage from "./components/Home";
+import { store } from "./store";
+import api from "./api";
+// import { ApiProvider } from "@reduxjs/toolkit/dist/query/react";
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <ApiProvider api={api}> */}
+      <Provider store={store}>
+        {/* <QueryClientProvider client={queryClient}> */}
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/home" element={<HomePage />} />
+          </Routes>
+        </BrowserRouter>
+        {/* </QueryClientProvider> */}
+      </Provider>
+      {/* </ApiProvider> */}
     </div>
   );
 }
